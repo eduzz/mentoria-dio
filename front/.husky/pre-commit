@@ -1,6 +1,0 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-echo "\n> Husky Pre-Commit" 
-
-yarn concurrently -r "yarn lint" "yarn tsc --noEmit"

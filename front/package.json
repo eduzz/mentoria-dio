@@ -10,15 +10,15 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "lint": "yarn eslint \"./src/**/*.ts\" \"./src/**/*.tsx\"",
-    "postinstall": "bash scripts/postinstall.sh"
+    "lint": "yarn eslint \"./src/**/*.ts\" \"./src/**/*.tsx\""
   },
   "dependencies": {
-    "@eduzz/houston-forms": "0.40.2",
-    "@eduzz/houston-hooks": "0.40.2",
-    "@eduzz/houston-ui": "0.40.2",
+    "@eduzz/houston-forms": "0.40.3",
+    "@eduzz/houston-hooks": "0.40.3",
+    "@eduzz/houston-ui": "0.40.3",
     "@reduxjs/toolkit": "1.6.2",
     "@sentry/browser": "6.13.3",
+    "faker": "5.5.3",
     "axios": "0.24.0",
     "date-fns": "2.25.0",
     "lodash": "4.17.21",
@@ -34,7 +34,7 @@
     "tslib": "2.3.1"
   },
   "devDependencies": {
-    "@eduzz/eslint-config-houston": "0.40.2",
+    "@eduzz/eslint-config-houston": "0.40.3",
     "@types/jest": "27.0.2",
     "@types/lodash": "4.14.176",
     "@types/node": "16.11.6",
@@ -45,6 +45,7 @@
     "@types/react-swipeable-views": "0.13.1",
     "@types/recharts": "2.0.0",
     "@types/yup": "0.29.13",
+    "@types/faker": "5.5.9",
     "@typescript-eslint/eslint-plugin": "5.2.0",
     "@typescript-eslint/parser": "5.2.0",
     "concurrently": "6.3.0",
@@ -57,7 +58,6 @@
     "eslint-plugin-react-hooks": "4.2.0",
     "eslint-plugin-sonarjs": "0.10.0",
     "eslint-plugin-unused-imports": "1.1.5",
-    "husky": "7.0.4",
     "inquirer": "8.2.0",
     "jest": "27.3.1",
     "ora": "6",

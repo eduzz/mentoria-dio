@@ -1,54 +1,83 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useState, useMemo } from 'react';
 
 import DeleteIcon from 'mdi-react/DeleteIcon';
 import EditIcon from 'mdi-react/EditIcon';
 
+import FacebookOutline from '@eduzz/houston-icons/FacebookOutline';
+import InstagramOutline from '@eduzz/houston-icons/InstagramOutline';
+import PaperAirplaneOutline from '@eduzz/houston-icons/PaperAirplaneOutline';
+import WhatsAppOutline from '@eduzz/houston-icons/WhatsAppOutline';
 import Table from '@eduzz/houston-ui/Table';
 import Toast from '@eduzz/houston-ui/Toast';
 
 import Alert from '@/components/Globals/Alert';
-import IUser from '@/interfaces/models/user';
+import { dateFormat } from '@/formatters/date';
+import { formatMoney } from '@/formatters/money';
+import { ICampaign } from '@/interfaces/models/campaign';
 import userService from '@/services/user';
 
+const iconsMap = {
+  facebook: FacebookOutline,
+  instagram: InstagramOutline,
+  whatsapp: WhatsAppOutline
+};
+
 interface IProps {
-  user: IUser;
+  data: ICampaign;
   index: number;
-  onEdit: (user: IUser) => void;
+  onEdit: (data: ICampaign) => void;
   onDeleteComplete: () => void;
 }
 
 const ListItem = memo((props: IProps) => {
-  const { user, onEdit, onDeleteComplete, index } = props;
+  const { data, onEdit, onDeleteComplete, index } = props;
 
   const [deleted, setDeleted] = useState(false);
 
+  const Icon = useMemo(() => {
+    return iconsMap[data.source] ?? PaperAirplaneOutline;
+  }, [data.source]);
+
   const handleEdit = useCallback(() => {
-    onEdit(user);
-  }, [onEdit, user]);
+    onEdit(data);
+  }, [onEdit, data]);
 
   const handleDelete = useCallback(async () => {
-    const confirm = await Alert.confirm(`Deseja excluir o usuário ${user.name}?`);
+    const confirm = await Alert.confirm(`Deseja excluir a campanha ${data.name}?`);
     if (!confirm) return;
 
     setDeleted(true);
 
     try {
-      await userService.delete(user.id);
+      await userService.delete(data.id);
       onDeleteComplete();
     } catch (err) {
-      Toast.error(`Não foi possível excluir o usuário ${user.name}?`);
+      Toast.error(`Não foi possível excluir a campanha ${data.name}?`);
       setDeleted(false);
     }
-  }, [onDeleteComplete, user.name, user.id]);
+  }, [onDeleteComplete, data.name, data.id]);
 
   if (deleted) {
     return null;
   }
 
   return (
-    <Table.Row data={user} index={index}>
-      <Table.Cell>{user.name}</Table.Cell>
-      <Table.Cell>{user.email}</Table.Cell>
+    <Table.Row data={data} index={index}>
+      <Table.Cell mobileSize={3}>
+        <Icon size={30} />
+      </Table.Cell>
+      <Table.Cell mobileSize={7}>{data.name}</Table.Cell>
+      <Table.Cell mobileSize={6} align='right' mobileAlign='left'>
+        {formatMoney(data.investment)}
+      </Table.Cell>
+      <Table.Cell mobileSize={6} align='right' mobileAlign='left'>
+        {formatMoney(data.revenues)}
+      </Table.Cell>
+      <Table.Cell mobileSize={6}>{dateFormat(data.beginDate)}</Table.Cell>
+      <Table.Cell mobileSize={6}>{dateFormat(data.endDate)}</Table.Cell>
+      <Table.Cell mobileSize={12} align='right' mobileAlign='left'>
+        {(data.roi * 100).toFixed(2)}%
+      </Table.Cell>
       <Table.Action icon={<EditIcon />} onClick={handleEdit}>
         Editar
       </Table.Action>

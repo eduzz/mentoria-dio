@@ -54,7 +54,7 @@ export class ApiService {
               onProgress && onProgress((progress.loaded / progress.total) * 100);
             }
           })
-        : getMockValue(method, url);
+        : getMockValue(method, url, data);
 
       const response = await request;
       onProgress && onProgress(100);

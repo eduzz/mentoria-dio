@@ -12,8 +12,8 @@ import CampaignsCards from './Cards';
 import ListItem from './ListItem';
 
 import Toolbar from '@/components/Layout/Toolbar';
-import IUser from '@/interfaces/models/user';
-import userService from '@/services/user';
+import { ICampaign } from '@/interfaces/models/campaign';
+import campaignService from '@/services/campaign';
 
 const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
   const { params, isLoading, total, result, error, retry, handleSort, handleChangePage, handleChangePerPage } =
@@ -23,16 +23,16 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
           term: '',
           page: 1,
           perPage: 10,
-          sort: { field: 'name', direction: 'asc' }
+          sort: { field: 'beginDate', direction: 'desc' }
         },
-        onChangeParams: params => userService.list(params)
+        onChangeParams: params => campaignService.list(params)
       },
       []
     );
 
   const handleCreate = useCallback(() => null, []);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleEdit = useCallback((current: IUser) => null, []);
+  const handleEdit = useCallback((current: ICampaign) => null, []);
 
   return (
     <div className={className}>
@@ -40,36 +40,48 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
 
       <CampaignsCards />
 
-      <Grid.Row className='header' alignItems='center'>
-        <Grid.Column xs={12} sm={true}>
-          <Typography size='x-large' fontWeight='bold'>
-            Campanhas
-          </Typography>
-          <Typography> Gerencie suas campanhas</Typography>
-        </Grid.Column>
+      <div className='header'>
+        <Grid.Row alignItems='center'>
+          <Grid.Column xs={12} sm={true}>
+            <Typography size='x-large' fontWeight='bold'>
+              Campanhas
+            </Typography>
+            <Typography> Gerencie suas campanhas</Typography>
+          </Grid.Column>
 
-        <Grid.Column xs={12} sm={'auto'}>
-          <Button fullWidth variant='contained' onClick={handleCreate} startIcon={<AddIcon />}>
-            Cadastrar Nova Campanha
-          </Button>
-        </Grid.Column>
-      </Grid.Row>
+          <Grid.Column xs={12} sm={'auto'}>
+            <Button fullWidth variant='contained' onClick={handleCreate} startIcon={<AddIcon />}>
+              Cadastrar Nova Campanha
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
+      </div>
 
-      <Table loading={isLoading} sort={params.sort} onSort={handleSort}>
+      <Table loading={isLoading} sort={params.sort} mobileWidth={900} onSort={handleSort}>
         <Table.Header>
-          <Table.Column>Fonte</Table.Column>
+          <Table.Column width={40}>Fonte</Table.Column>
           <Table.Column>Campanha</Table.Column>
-          <Table.Column>Investimento</Table.Column>
-          <Table.Column>Faturamento</Table.Column>
-          <Table.Column>Início</Table.Column>
-          <Table.Column>Término</Table.Column>
-          <Table.Column>ROI</Table.Column>
+          <Table.Column width={130} align='right'>
+            Investimento
+          </Table.Column>
+          <Table.Column width={130} align='right'>
+            Faturamento
+          </Table.Column>
+          <Table.Column width={120} sortableField='beginDate'>
+            Início
+          </Table.Column>
+          <Table.Column width={120} sortableField='endDate'>
+            Término
+          </Table.Column>
+          <Table.Column width={90} align='right'>
+            ROI
+          </Table.Column>
         </Table.Header>
         <Table.Body>
           {!error && <Table.Empty count={total} />}
           <Table.Error error={error} />
-          {result.map((user, index) => (
-            <ListItem key={user.id} user={user} index={index} onEdit={handleEdit} onDeleteComplete={retry} />
+          {result.map((data, index) => (
+            <ListItem key={data.id} data={data} index={index} onEdit={handleEdit} onDeleteComplete={retry} />
           ))}
         </Table.Body>
         <Table.Pagination

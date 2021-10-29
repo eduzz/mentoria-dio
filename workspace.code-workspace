@@ -12,7 +12,7 @@
 		 ]
 	},
 	"settings": {
-		"typescript.tsdk": "node_modules/typescript/lib",
+		"typescript.tsdk": "front/node_modules/typescript/lib",
 		"editor.formatOnPaste": false,
 		"editor.formatOnSave": false,
 		"editor.formatOnType": false,
