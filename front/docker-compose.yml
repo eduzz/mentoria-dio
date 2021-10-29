@@ -1,0 +1,11 @@
+version: '3'
+services:
+
+  web:
+    container_name: bootcamp-eduzz
+   build: docker/dev
+    ports:
+      - "3000:3000"
+      - "35729:35729"
+    volumes:
+      - .:/src

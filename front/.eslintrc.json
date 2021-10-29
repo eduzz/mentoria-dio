@@ -1,0 +1,8 @@
+{
+  "extends": ["@eduzz/eslint-config-houston"],
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "sonarjs/no-nested-template-literals": "off"
+  }
+}
