@@ -1,0 +1,46 @@
+{
+	"folders": [
+		{ "name": "all", "path": "." },
+		{ "name": "front", "path": "./front" }
+	],
+	"extensions": {
+		 "recommendations": [
+			"christian-kohler.npm-intellisense",
+			"christian-kohler.path-intellisense",
+			"dbaeumer.vscode-eslint",
+			"jpoissonnier.vscode-styled-components"
+		 ]
+	},
+	"settings": {
+		"typescript.tsdk": "node_modules/typescript/lib",
+		"editor.formatOnPaste": false,
+		"editor.formatOnSave": false,
+		"editor.formatOnType": false,
+		"eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+		"files.exclude": {
+			"build": true,
+			"**/*.css": {
+				"when": "$(basename).scss"
+			},
+			"**/*.js": {
+				"when": "$(basename).ts"
+			},
+			"**/*?.js": {
+				"when": "$(basename).tsx"
+			},
+			"**/*.lock.json": true,
+			"**/*.map": {
+				"when": "$(basename)"
+			},
+			"**/.DS_Store": true,
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.tmp": true,
+			"**/bin/**": true,
+			"**/obj/**": true
+		},
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true
+		}
+	}
+}
