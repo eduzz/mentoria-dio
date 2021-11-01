@@ -11,30 +11,26 @@ ARQUITETURA
 
 ### Scripts do package.json
 
-| Comando         | Descrição                                      | Quem usa                           |
-|-----------------|------------------------------------------------|------------------------------------|
-| dev             | inicia o react-scripts-ts                      | Docker (dev) / desenvolvedor       |
-| build           | gera os arquivos transpilados                  | Docker (durante build de produção) |
-| eject           | ejeta os arquivos do webpack (não recomendado) | desenvolvedor                      |
-| webpack-analyze | use para verificar o tamanho o bundle final    | devensolvedor                      |
-| update-base     | use atualizar a base do app                    | devensolvedor                      |
+| Comando | Descrição                     | Quem usa                           |
+|---------|-------------------------------|------------------------------------|
+| star    | inicia o react-scripts-ts     | desenvolvedor                      |
+| build   | gera os arquivos transpilados | Docker (durante build de produção) |
 
 ### Sistema de pastas
 
 * assets: pasta aonde contem as imagens, o css global e a configuração do tema.
 * components: componentes do React.
-    * Dialogs: componentes de dialogs gerais do sistema.
+    * Globais: componentes de dialogs gerais do sistema.
     * Layout: componentes que servem como base estrutura para o layout.
     * Pages: componentes que são as tela separadas pelas áreas.
     * Shared: components genéricos para auxiliar.
-* declarations: custom typings para o Typescript.
 * errors: classes de erro.
 * formatters: funções para formatar dado.
 * helpers: funções genéricas que auxiliam na tarefa.
-  * rxjs-operators: operadores do RxJs criados para o projeto.
 * hooks: hooks customizados
 * interfaces: interfaces gerais e respostas da api.
 * services: responsável pela lógica de nogocio e a comunicação com o servidor.
+* store: camada de configuração da store do redux.
 
 ---
 
