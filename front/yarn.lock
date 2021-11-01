@@ -1259,49 +1259,49 @@
   dependencies:
     "@date-io/core" "^2.11.0"
 
-"@eduzz/eslint-config-houston@0.40.3":
-  version "0.40.3"
-  resolved "https://registry.yarnpkg.com/@eduzz/eslint-config-houston/-/eslint-config-houston-0.40.3.tgz#04b6d45beb3a77c9802773c303e3e18566d8f04d"
-  integrity sha512-PFYZYQp89o/FeWWkV+XQMQA1G/4JGtoMLPjRg4/DmxHRKGRmsVom34IF0RbAdUHgR+FjQiTRIkHagsuYQB00Fg==
+"@eduzz/eslint-config-houston@0.40.5":
+  version "0.40.5"
+  resolved "https://registry.yarnpkg.com/@eduzz/eslint-config-houston/-/eslint-config-houston-0.40.5.tgz#facbdbe762aea2e332fec2da1454142bbc6d43c1"
+  integrity sha512-WR3LZ5pWXNW5bXzojm4KRrlW1WQRU3iF3Vk5eMQVg1lkUKOXeK6QLHp6XoyaiZmx2E0+N/fy+iEw4js0Tq6Ehg==
 
-"@eduzz/houston-core@0.40.3":
-  version "0.40.3"
-  resolved "https://registry.yarnpkg.com/@eduzz/houston-core/-/houston-core-0.40.3.tgz#5174556f38f96c0fa96580efde801998ea544118"
-  integrity sha512-IPq6eBi/4TRalF2mr/hcg6a53CEYSiZGxIjL+nbpMmNp/2YFbAEaxqAKPbCdvULuU/EUdVTLs7TiMd3DTGIVZw==
+"@eduzz/houston-core@0.40.5":
+  version "0.40.5"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-core/-/houston-core-0.40.5.tgz#de62ec869acd8d1eb4d1b5eaaaf8022edc323c94"
+  integrity sha512-plJKmSooYTeh0jVuQlEDNYmsk6VbKHPMhbG+9db9n7JeumeqoWee2hfj809msQil7AnxbjqBmHaFQViTxl3kzg==
 
-"@eduzz/houston-forms@0.40.3":
-  version "0.40.3"
-  resolved "https://registry.yarnpkg.com/@eduzz/houston-forms/-/houston-forms-0.40.3.tgz#ea059b649fe30e5bdd8cfbb472f26c5edcec04e9"
-  integrity sha512-3ADtBlQ//T9YkIHNGHWYod1dnK+615W/AParl+yxIboiTGb228XAjmbsy5X0dB1AmZsMaxcJemhrqOITpxyU6w==
+"@eduzz/houston-forms@0.40.5":
+  version "0.40.5"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-forms/-/houston-forms-0.40.5.tgz#bbbb3d189fca49a2c356be07d32ffdc36304f817"
+  integrity sha512-CV+zPpXxoHhuCGAsryXJdUJJTHakbzPgSPtYKOKhIlLZSK8j9485vjWUDli+hdJbr91uLRj5yCDb81Up9Jfvng==
   dependencies:
-    "@eduzz/houston-core" "0.40.3"
-    "@eduzz/houston-hooks" "0.40.3"
+    "@eduzz/houston-core" "0.40.5"
+    "@eduzz/houston-hooks" "0.40.5"
     "@types/yup" "^0.29.13"
     formik "^2.2.9"
     rxjs "^7"
     yup "^0.32.9"
 
-"@eduzz/houston-hooks@0.40.3":
-  version "0.40.3"
-  resolved "https://registry.yarnpkg.com/@eduzz/houston-hooks/-/houston-hooks-0.40.3.tgz#d84aaf373f68cd0c02315e77a2e4c50016a5acd7"
-  integrity sha512-v5ZKjkVmAlIqcJS1dllN99+xJ/FzuvcKt75QbMCvJhi8lS5FlhCm4UlPn6caPyfRIwDC3oLKC3hMc4xsAo7bcQ==
+"@eduzz/houston-hooks@0.40.5":
+  version "0.40.5"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-hooks/-/houston-hooks-0.40.5.tgz#39fa2485b1889d8d554880b31d13373886fc1d67"
+  integrity sha512-xmvUTNWiRKb/1uWPcfcHl9x12PD7NPCQizzZh34K/mgdbckH908jUMef2P2V5AbQzQ4ifYVaVe5knJ26md3nqQ==
   dependencies:
-    "@eduzz/houston-core" "0.40.3"
+    "@eduzz/houston-core" "0.40.5"
     lodash "^4"
 
-"@eduzz/houston-icons@0.40.3":
-  version "0.40.3"
-  resolved "https://registry.yarnpkg.com/@eduzz/houston-icons/-/houston-icons-0.40.3.tgz#5dc8b560b4da560be61e63319209b4360928a156"
-  integrity sha512-G/eZCCXQLi7xtlKihGSGUejJNAJXQ48JoWH6eqJC3Lcm8rceYlthD6b6fribFRR56zPN5V/pLXNPKuaIUH2VLA==
+"@eduzz/houston-icons@0.40.5":
+  version "0.40.5"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-icons/-/houston-icons-0.40.5.tgz#6175bbdae81bffcdb0e5207134b3e44b7cc1ebdb"
+  integrity sha512-0q3ra3ORi63DpsLEM5DjYfhpqGkfwTUea1aFCUbv8GB8tNBYYIgt4++MBDGWiRJEwfsY8PjoQ32/GcVzJB+TZw==
 
-"@eduzz/houston-ui@0.40.3":
-  version "0.40.3"
-  resolved "https://registry.yarnpkg.com/@eduzz/houston-ui/-/houston-ui-0.40.3.tgz#2d239a1c873e34ef8c5bcca63d23ec3d294c1801"
-  integrity sha512-xIJHmNTV920hZjUR96PpmYuTmb5Z8CLPKQaiAaFdvxZC/E7so1gpumymYGtyb63cFkD/v00rgX0zkU9EHn/Geg==
+"@eduzz/houston-ui@0.40.5":
+  version "0.40.5"
+  resolved "https://registry.yarnpkg.com/@eduzz/houston-ui/-/houston-ui-0.40.5.tgz#61d6c2bd101305e6c26725a68b1ea21be361da6b"
+  integrity sha512-58PrCk+m3CCNRonzt4HTHun9qZ+eqH7akaoZbe54n9LMe6PrOXNDzldjpxPjm3BumsNBuTwOZpDw7GC6tDRcTw==
   dependencies:
-    "@eduzz/houston-core" "0.40.3"
-    "@eduzz/houston-hooks" "0.40.3"
-    "@eduzz/houston-icons" "0.40.3"
+    "@eduzz/houston-core" "0.40.5"
+    "@eduzz/houston-hooks" "0.40.5"
+    "@eduzz/houston-icons" "0.40.5"
     "@emotion/css" "^11.1.3"
     "@emotion/react" "^11.4.1"
     "@emotion/styled" "^11.3.0"
@@ -5599,10 +5599,15 @@ eslint-plugin-prettier@4.0.0:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-react-hooks@4.2.0, eslint-plugin-react-hooks@^4.2.0:
+eslint-plugin-react-hooks@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.2.0.tgz#8c229c268d468956334c943bb45fc860280f5556"
   integrity sha512-623WEiZJqxR7VdxFCKLI6d6LLpwJkGPYKODnkH3D7WpOG5KM8yWueBd8TLsNAetEJNF5iJmolaAKO3F8yzyVBQ==
+
+eslint-plugin-react-hooks@next:
+  version "4.2.1-alpha-a0d991fe6-20211031"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.2.1-alpha-a0d991fe6-20211031.tgz#b64b77ab6b3d0be06b8c907fcd7079d979b2db45"
+  integrity sha512-T9iQgRLRwqwZz33Hwcz5JaIEalbkV5CDd0PdFQCtBypZmkDhsMafPS+1td3DurDp0lbvdrrQRjq2tNIOhS52Ng==
 
 eslint-plugin-react@7.26.1, eslint-plugin-react@^7.21.5:
   version "7.26.1"

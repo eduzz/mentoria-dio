@@ -13,9 +13,9 @@
     "lint": "yarn eslint \"./src/**/*.ts\" \"./src/**/*.tsx\""
   },
   "dependencies": {
-    "@eduzz/houston-forms": "0.40.3",
-    "@eduzz/houston-hooks": "0.40.3",
-    "@eduzz/houston-ui": "0.40.3",
+    "@eduzz/houston-forms": "0.40.5",
+    "@eduzz/houston-hooks": "0.40.5",
+    "@eduzz/houston-ui": "0.40.5",
     "@reduxjs/toolkit": "1.6.2",
     "@sentry/browser": "6.13.3",
     "faker": "5.5.3",
@@ -34,7 +34,7 @@
     "tslib": "2.3.1"
   },
   "devDependencies": {
-    "@eduzz/eslint-config-houston": "0.40.3",
+    "@eduzz/eslint-config-houston": "0.40.5",
     "@types/jest": "27.0.2",
     "@types/lodash": "4.14.176",
     "@types/node": "16.11.6",
@@ -55,7 +55,7 @@
     "eslint-plugin-import": "2.25.2",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react": "7.26.1",
-    "eslint-plugin-react-hooks": "4.2.0",
+    "eslint-plugin-react-hooks": "next",
     "eslint-plugin-sonarjs": "0.10.0",
     "eslint-plugin-unused-imports": "1.1.5",
     "inquirer": "8.2.0",

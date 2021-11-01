@@ -34,6 +34,7 @@ const ListItem = memo((props: IProps) => {
   const { data, onEdit, onDeleteComplete, index } = props;
 
   const [deleted, setDeleted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const Icon = useMemo(() => {
     return iconsMap[data.source] ?? PaperAirplaneOutline;
@@ -55,10 +56,12 @@ const ListItem = memo((props: IProps) => {
     });
     if (!confirm) return;
 
-    setDeleted(true);
+    setLoading(true);
 
     try {
       await campaignService.delete(data.id);
+      setDeleted(true);
+      setLoading(false);
       onDeleteComplete && onDeleteComplete();
     } catch (err) {
       Toast.error(`Não foi possível excluir a campanha ${data.name}.`);
@@ -87,6 +90,7 @@ const ListItem = memo((props: IProps) => {
       <Table.Cell mobileSize={12} align='right' mobileAlign='left'>
         {(data.roi * 100).toFixed(2)}%
       </Table.Cell>
+      <Table.ActionLoading show={loading} />
       <Table.Action icon={<EditIcon />} onClick={handleEdit}>
         Editar
       </Table.Action>

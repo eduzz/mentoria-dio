@@ -8,7 +8,10 @@ import LinearProgress from '@mui/material/LinearProgress';
 
 import useForm from '@eduzz/houston-forms/useForm';
 import Button from '@eduzz/houston-ui/Button';
+import CurrencyField from '@eduzz/houston-ui/Forms/Currency';
+import DateField from '@eduzz/houston-ui/Forms/DatePicker';
 import Form from '@eduzz/houston-ui/Forms/Form';
+import SelectField, { ISelectFieldOption } from '@eduzz/houston-ui/Forms/Select';
 import TextField from '@eduzz/houston-ui/Forms/Text';
 import styled, { IStyledProp } from '@eduzz/houston-ui/styles/styled';
 import Toast from '@eduzz/houston-ui/Toast';
@@ -22,6 +25,12 @@ interface IProps extends IStyledProp {
   onComplete: (data: ICampaign) => void;
   onCancel: () => void;
 }
+
+const sources: ISelectFieldOption[] = [
+  { label: 'Whatsapp', value: 'whatsapp' },
+  { label: 'Facebook', value: 'facebook' },
+  { label: 'Instagram', value: 'instagram' }
+];
 
 const CampaignForm: React.FC<IProps> = ({ opened, data, onComplete, onCancel, className }) => {
   const form = useForm<ICampaign>({
@@ -51,10 +60,14 @@ const CampaignForm: React.FC<IProps> = ({ opened, data, onComplete, onCancel, cl
       {form.isSubmitting && <LinearProgress color='primary' />}
 
       <Form context={form} className={className}>
-        <DialogTitle>{form.values.id ? 'Editar' : 'Novo'} Usuário</DialogTitle>
+        <DialogTitle>{form.values.id ? 'Editar a campanha' : 'Cadastre uma nova campanha'} </DialogTitle>
         <DialogContent className='content'>
-          <TextField label='Nome' name='name' />
-          <TextField label='Email' name='email' type='email' />
+          <TextField label='Nome da campanha' name='name' />
+          <TextField label='Link' name='link' placeholder='https://minha-campanha.exemplo.com' />
+          <SelectField label='Fonte da campanha' name='source' emptyOption='Selecione' options={sources} />
+          <CurrencyField label='Valor investido' name='investment' placeholder='R$' />
+          <CurrencyField label='Valor faturado (Opcional)' name='revenues' placeholder='R$' />
+          <DateField label='Data de início' name='beginDate' placeholder='Insira a data de início' />
         </DialogContent>
         <DialogActions>
           <Button variant='text' onClick={onCancel}>

@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import usePromisePaginated from '@eduzz/houston-hooks/usePromisePaginated';
 import AddIcon from '@eduzz/houston-icons/Add';
@@ -9,6 +9,7 @@ import Table from '@eduzz/houston-ui/Table';
 import Typography from '@eduzz/houston-ui/Typography';
 
 import CampaignsCards from './Cards';
+import CampaignForm from './Form';
 import ListItem from './ListItem';
 
 import Toolbar from '@/components/Layout/Toolbar';
@@ -16,7 +17,10 @@ import { ICampaign } from '@/interfaces/models/campaign';
 import campaignService from '@/services/campaign';
 
 const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
-  const { params, isLoading, total, result, error, handleSort, handleChangePage, handleChangePerPage } =
+  const [formOpened, setFormOpened] = useState(false);
+  const [current, setCurrent] = useState<ICampaign>();
+
+  const { params, isLoading, total, retry, result, error, handleSort, handleChangePage, handleChangePerPage } =
     usePromisePaginated(
       {
         initialParams: {
@@ -30,15 +34,29 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
       []
     );
 
-  const handleCreate = useCallback(() => null, []);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleEdit = useCallback((current: ICampaign) => null, []);
+  const formCallback = useCallback(() => {
+    setFormOpened(false);
+    retry();
+  }, [retry]);
+
+  const formCancel = useCallback(() => setFormOpened(false), []);
+
+  const handleCreate = useCallback(() => {
+    setFormOpened(true);
+    setCurrent(null);
+  }, []);
+
+  const handleEdit = useCallback((current: ICampaign) => {
+    setFormOpened(true);
+    setCurrent(current);
+  }, []);
 
   return (
     <div className={className}>
       <Toolbar />
 
       <CampaignsCards />
+      <CampaignForm opened={formOpened} data={current} onComplete={formCallback} onCancel={formCancel} />
 
       <div className='header'>
         <Grid.Row alignItems='center'>

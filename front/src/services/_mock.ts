@@ -30,7 +30,6 @@ let campaigns = new Array(15).fill('a').map<ICampaign>((a, index) => ({
 const requests = {
   GET: {
     '/campaigns': (params: IPaginationParams) => {
-      console.log('olá!');
       let result = [...campaigns].slice((params.page - 1) * params.perPage, params.page * params.perPage);
 
       if (params.sort?.field) {
@@ -66,7 +65,6 @@ const requests = {
 
 export default function getMockValue(method: string, url: string, params: any) {
   return new Promise<{ data: any }>(resolve => {
-    console.log({ method, url });
     const mock = requests[method][url] ?? (() => null as any);
     setTimeout(() => resolve({ data: mock(params) }), 1000 + 2000 * Math.random());
   });
