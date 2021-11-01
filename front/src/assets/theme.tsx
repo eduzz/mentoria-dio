@@ -1,6 +1,7 @@
 import { HoustonThemeBuilder } from '@eduzz/houston-ui/styles/types';
 
 const variables = {
+  lang: 'pt-BR',
   headerHeight: 67,
   headerHeightUpSm: 64,
   tabbarHeight: 48,

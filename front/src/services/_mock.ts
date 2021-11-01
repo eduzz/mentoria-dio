@@ -17,8 +17,9 @@ const sources = {
 };
 
 let campaigns = new Array(15).fill('a').map<ICampaign>((a, index) => ({
-  id: index,
+  id: index + 1,
   name: faker.commerce.productName(),
+  link: faker.internet.url(),
   investment: getRandomInt(1000, 10000),
   revenues: getRandomInt(1000, 10000),
   beginDate: faker.date.past(),
@@ -27,9 +28,12 @@ let campaigns = new Array(15).fill('a').map<ICampaign>((a, index) => ({
   source: sources[getRandomInt(1, 4)]
 }));
 
+let campaignId = campaigns.length;
+
 const requests = {
   GET: {
     '/campaigns': (params: IPaginationParams) => {
+      console.log({ campaigns, params });
       let result = [...campaigns].slice((params.page - 1) * params.perPage, params.page * params.perPage);
 
       if (params.sort?.field) {
@@ -54,7 +58,19 @@ const requests = {
     '/auth/create': () => ({}),
     '/auth/send-reset': () => ({}),
     '/auth/reset-password': () => ({}),
-    '/auth/change-password': () => ({})
+    '/auth/change-password': () => ({}),
+    '/campaigns': (model: ICampaign) => {
+      const index = campaigns.findIndex(c => c.id === model.id);
+
+      if (!index) {
+        const data = { id: ++campaignId, ...model };
+        campaigns.push(data);
+        return data;
+      }
+
+      campaigns[index] = { ...campaigns[index], ...model };
+      return campaigns[index];
+    }
   },
   DELETE: {
     '/campaigns': ({ id }: { id: number }) => {

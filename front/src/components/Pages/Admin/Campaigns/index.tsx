@@ -20,7 +20,7 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
   const [formOpened, setFormOpened] = useState(false);
   const [current, setCurrent] = useState<ICampaign>();
 
-  const { params, isLoading, total, retry, result, error, handleSort, handleChangePage, handleChangePerPage } =
+  const { params, isLoading, total, refresh, result, error, handleSort, handleChangePage, handleChangePerPage } =
     usePromisePaginated(
       {
         initialParams: {
@@ -36,8 +36,8 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
 
   const formCallback = useCallback(() => {
     setFormOpened(false);
-    retry();
-  }, [retry]);
+    refresh();
+  }, [refresh]);
 
   const formCancel = useCallback(() => setFormOpened(false), []);
 
