@@ -13,6 +13,7 @@ export interface IAlertShowParams {
   message: React.ReactNode;
   title?: string;
   confirmation?: boolean;
+  okMessage?: string;
 }
 
 interface IAlertShowParamsState extends IAlertShowParams {
@@ -74,7 +75,7 @@ const Alert: AlertComponent = memo(() => {
             Cancelar
           </Button>
         )}
-        <Button onClick={params?.onConfirm}>OK</Button>
+        <Button onClick={params?.onConfirm}>{params?.okMessage ?? 'OK'}</Button>
       </DialogActions>
     </Dialog>
   );

@@ -16,7 +16,7 @@ import { ICampaign } from '@/interfaces/models/campaign';
 import campaignService from '@/services/campaign';
 
 const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
-  const { params, isLoading, total, result, error, retry, handleSort, handleChangePage, handleChangePerPage } =
+  const { params, isLoading, total, result, error, handleSort, handleChangePage, handleChangePerPage } =
     usePromisePaginated(
       {
         initialParams: {
@@ -81,7 +81,7 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
           {!error && <Table.Empty count={total} />}
           <Table.Error error={error} />
           {result.map((data, index) => (
-            <ListItem key={data.id} data={data} index={index} onEdit={handleEdit} onDeleteComplete={retry} />
+            <ListItem key={data.id} data={data} index={index} onEdit={handleEdit} />
           ))}
         </Table.Body>
         <Table.Pagination

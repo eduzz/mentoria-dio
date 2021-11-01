@@ -13,18 +13,18 @@ import TextField from '@eduzz/houston-ui/Forms/Text';
 import styled, { IStyledProp } from '@eduzz/houston-ui/styles/styled';
 import Toast from '@eduzz/houston-ui/Toast';
 
-import IUser from '@/interfaces/models/user';
-import userService from '@/services/user';
+import { ICampaign } from '@/interfaces/models/campaign';
+import campaignService from '@/services/campaign';
 
 interface IProps extends IStyledProp {
   opened: boolean;
-  user?: IUser;
-  onComplete: (user: IUser) => void;
+  data?: ICampaign;
+  onComplete: (data: ICampaign) => void;
   onCancel: () => void;
 }
 
-const FormDialog: React.FC<IProps> = ({ opened, user, onComplete, onCancel, className }) => {
-  const form = useForm<IUser>({
+const CampaignForm: React.FC<IProps> = ({ opened, data, onComplete, onCancel, className }) => {
+  const form = useForm<ICampaign>({
     validationSchema: yup =>
       yup.object().shape({
         name: yup.string().required().min(3).max(250),
@@ -32,15 +32,15 @@ const FormDialog: React.FC<IProps> = ({ opened, user, onComplete, onCancel, clas
         roles: yup.array().required().min(1)
       }),
     async onSubmit(model) {
-      const user = await userService.save(model);
+      const user = await campaignService.save(model);
       Toast.success(`${user.name} foi salvo${model.id ? '' : ', um email foi enviado com a senha'}`);
       onComplete(user);
     }
   });
 
   const handleEnter = useCallback(() => {
-    form.setValues(user ?? {}, false);
-  }, [form, user]);
+    form.setValues(data ?? {}, false);
+  }, [form, data]);
 
   const handleExited = useCallback(() => {
     form.reset();
@@ -69,7 +69,7 @@ const FormDialog: React.FC<IProps> = ({ opened, user, onComplete, onCancel, clas
   );
 };
 
-export default styled(memo(FormDialog))`
+export default styled(memo(CampaignForm))`
   & .content {
     width: 600;
     max-width: calc(95vw - 50px);

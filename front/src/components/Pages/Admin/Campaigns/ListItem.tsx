@@ -9,12 +9,13 @@ import PaperAirplaneOutline from '@eduzz/houston-icons/PaperAirplaneOutline';
 import WhatsAppOutline from '@eduzz/houston-icons/WhatsAppOutline';
 import Table from '@eduzz/houston-ui/Table';
 import Toast from '@eduzz/houston-ui/Toast';
+import Typography from '@eduzz/houston-ui/Typography';
 
 import Alert from '@/components/Globals/Alert';
 import { dateFormat } from '@/formatters/date';
 import { formatMoney } from '@/formatters/money';
 import { ICampaign } from '@/interfaces/models/campaign';
-import userService from '@/services/user';
+import campaignService from '@/services/campaign';
 
 const iconsMap = {
   facebook: FacebookOutline,
@@ -26,7 +27,7 @@ interface IProps {
   data: ICampaign;
   index: number;
   onEdit: (data: ICampaign) => void;
-  onDeleteComplete: () => void;
+  onDeleteComplete?: () => void;
 }
 
 const ListItem = memo((props: IProps) => {
@@ -43,16 +44,24 @@ const ListItem = memo((props: IProps) => {
   }, [onEdit, data]);
 
   const handleDelete = useCallback(async () => {
-    const confirm = await Alert.confirm(`Deseja excluir a campanha ${data.name}?`);
+    const confirm = await Alert.confirm({
+      title: 'Excluir campanha',
+      message: (
+        <Typography>
+          Deseja realmente excluir a campanha <strong>{data.name}</strong>?
+        </Typography>
+      ),
+      okMessage: 'Excluir'
+    });
     if (!confirm) return;
 
     setDeleted(true);
 
     try {
-      await userService.delete(data.id);
-      onDeleteComplete();
+      await campaignService.delete(data.id);
+      onDeleteComplete && onDeleteComplete();
     } catch (err) {
-      Toast.error(`Não foi possível excluir a campanha ${data.name}?`);
+      Toast.error(`Não foi possível excluir a campanha ${data.name}.`);
       setDeleted(false);
     }
   }, [onDeleteComplete, data.name, data.id]);

@@ -16,7 +16,7 @@ const sources = {
   3: 'instagram'
 };
 
-const campaigns = new Array(15).fill('a').map<ICampaign>((a, index) => ({
+let campaigns = new Array(15).fill('a').map<ICampaign>((a, index) => ({
   id: index,
   name: faker.commerce.productName(),
   investment: getRandomInt(1000, 10000),
@@ -42,7 +42,10 @@ const requests = {
       }
 
       return { total: campaigns.length, result } as IPaginationResponse<ICampaign>;
-    }
+    },
+    '/campaigns/graphs/roi': () => Math.random(),
+    '/campaigns/graphs/revenues': () => getRandomInt(16000, 20000),
+    '/campaigns/graphs/investment': () => getRandomInt(10000, 15000)
   },
   POST: {
     '/auth/login': () => ({
@@ -53,6 +56,11 @@ const requests = {
     '/auth/send-reset': () => ({}),
     '/auth/reset-password': () => ({}),
     '/auth/change-password': () => ({})
+  },
+  DELETE: {
+    '/campaigns': ({ id }: { id: number }) => {
+      campaigns = campaigns.filter(c => c.id !== id);
+    }
   }
 };
 
