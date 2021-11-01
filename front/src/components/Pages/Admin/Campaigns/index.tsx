@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import usePromisePaginated from '@eduzz/houston-hooks/usePromisePaginated';
 import AddIcon from '@eduzz/houston-icons/Add';
 import Button from '@eduzz/houston-ui/Button';
@@ -57,6 +59,8 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
 
       <CampaignsCards />
       <CampaignForm opened={formOpened} data={current} onComplete={formCallback} onCancel={formCancel} />
+
+      <Link to='/state-management'>Gerenciamento de Estado</Link>
 
       <div className='header'>
         <Grid.Row alignItems='center'>

@@ -27,11 +27,7 @@ const Toolbar: React.FC<IProps> = ({ title, children, className }) => {
               <Grid item xs={true} className='left'>
                 <img src={logo} className='logo' />
 
-                {!!title && (
-                  <Typography size='medium' fontWeight='semibold'>
-                    {title}
-                  </Typography>
-                )}
+                {!!title && <Typography size='medium'>{title}</Typography>}
               </Grid>
               <Grid item xs={false}>
                 <UserMenu />

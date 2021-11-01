@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import { authTokenSlice } from './slices/authToken';
+import { autoCompleteSlice } from './slices/autoComplete';
 
 declare module 'react-redux' {
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -9,7 +10,8 @@ declare module 'react-redux' {
 
 export const store = configureStore({
   reducer: {
-    authToken: authTokenSlice.reducer
+    authToken: authTokenSlice.reducer,
+    autoComplete: autoCompleteSlice.reducer
   }
 });
 
