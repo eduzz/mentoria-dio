@@ -4,7 +4,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import LinearProgress from '@mui/material/LinearProgress';
 
 import useForm from '@eduzz/houston-forms/useForm';
 import Button from '@eduzz/houston-ui/Button';
@@ -62,8 +61,6 @@ const CampaignForm: React.FC<IProps> = ({ opened, data, onComplete, onCancel, cl
 
   return (
     <Dialog open={opened} disableEscapeKeyDown TransitionProps={{ onEnter: handleEnter, onExited: handleExited }}>
-      {form.isSubmitting && <LinearProgress color='primary' />}
-
       <Form context={form} className={className}>
         <DialogTitle>{form.values.id ? 'Editar a campanha' : 'Cadastre uma nova campanha'} </DialogTitle>
         <DialogContent className='content'>
@@ -93,7 +90,7 @@ const CampaignForm: React.FC<IProps> = ({ opened, data, onComplete, onCancel, cl
           <Button variant='text' onClick={onCancel}>
             Cancelar
           </Button>
-          <Button type='submit' disabled={form.isSubmitting}>
+          <Button type='submit' disabled={form.isSubmitting} loading={form.isSubmitting}>
             Salvar
           </Button>
         </DialogActions>

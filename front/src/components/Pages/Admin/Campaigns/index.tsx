@@ -26,7 +26,6 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
     usePromisePaginated(
       {
         initialParams: {
-          term: '',
           page: 1,
           perPage: 10,
           sort: { field: 'beginDate', direction: 'desc' }
