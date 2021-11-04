@@ -57,10 +57,21 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
     <div className={className}>
       <Toolbar />
 
+      <ul>
+        <li>
+          <Link to='/state-management' target='_blank'>
+            Gerenciamento de Estado
+          </Link>
+        </li>
+        <li>
+          <a href='https://eduzz.github.io/houston/' target='_blank' rel='noreferrer'>
+            Houston Github Pages
+          </a>
+        </li>
+      </ul>
+
       <CampaignsCards />
       <CampaignForm opened={formOpened} data={current} onComplete={formCallback} onCancel={formCancel} />
-
-      <Link to='/state-management'>Gerenciamento de Estado</Link>
 
       <div className='header'>
         <Grid.Row alignItems='center'>

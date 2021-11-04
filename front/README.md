@@ -1,23 +1,31 @@
-Template Base de React
-======================
+Mentoria DIO - Front
+====================
 
 Utilize o VSCode, já está configurado com sugestão de extensões.
 
+
 ### Tecnologias
 
-* Vite (no lugar do react-scripts)
+* [React-Scripts (CRA)](https://create-react-app.dev/)
+* [React App Rewired](https://www.npmjs.com/package/react-app-rewired) (para configurações adicionais)
 * React/Hooks
 * Typescript
 * RxJs
 * Redux Toolkit
 * React Router
-* Eduzz Houston
+* [Eduzz Houston](https://github.com/eduzz/mentoria-dio/tree/master/front)
 
-### Iniciando um novo projeto
+### Como rodar
 
 ```bash
-npx @eduzz/create-project
-# Selecione a opcão de Front
+git clone https://github.com/eduzz/mentoria-dio.git
+cd ./mentoria-dio/front
+yarn # ou npm install
+yarn start # ou npm start
 ```
+
+Toda a API está mockada, então a aplicação aceitará qualquer usuário e senha.
+Para mais detalhes do retorno da API [clique aqui](front/src/services/_mock.ts)
+
 
 ### Para mais informações veja a pasta ./docs
