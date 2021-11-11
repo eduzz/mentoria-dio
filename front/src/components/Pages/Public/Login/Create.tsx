@@ -25,7 +25,7 @@ const LoginForm: React.FC<IProps> = ({ onCancel, className }) => {
         password: yup.string().required().min(6)
       }),
     async onSubmit(model) {
-      await authService.login(model.email, model.password);
+      await authService.create(model);
     }
   });
 

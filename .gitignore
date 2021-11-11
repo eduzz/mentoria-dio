@@ -1,1 +1,3 @@
 .DS_Store
+api/node_modules
+api/_volumes/mysql/data

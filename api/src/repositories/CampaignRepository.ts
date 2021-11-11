@@ -1,42 +1,75 @@
-import Campaign from "../entity/Campaign";
+import { EntityRepository, getManager, QueryBuilder, Repository, SelectQueryBuilder } from "typeorm";
+import {Campaign} from "../entity/Campaign";
+import { NotFoundError } from "../exceptions/NotFoundException";
+import IPaginationFilter from "../services/interfaces/IPaginationFilter";
 
-export const listCampaigns = async (): Promise<[Campaign]> => {
-    const campaigns: [Campaign] = [];
+@EntityRepository(Campaign)
+export class CampaignRepository extends Repository<Campaign>{
 
-    return campaigns;
-}
+    public listCampaigns = async (filter: Partial<IPaginationFilter>): Promise<Campaign[]> => {
+        const queryBuilder: SelectQueryBuilder<Campaign> = this.createQueryBuilder();
+        const all: Campaign[] = await queryBuilder
+            .select()
+            .take(filter.perPage)
+            .skip((filter.page-1)*filter.perPage)
+            .orderBy(filter.sort.field, filter.sort.direction)
+            .getMany();
+        return all;
+    }
 
-export const getCampaignById = async (id: number): Promise<Campaign> => {
-    // Get campaigns by id
-    const campaign: Campaign = {};
-    return campaign;
-}
+    public async getCampaignById(id: number): Promise<Campaign> {
+        return await this.findOne(id);
+    }
 
-export const updateCampaign = async (id: number, data: Partial<Campaign>): Promise<Campaign> => {
-    const campaign: Campaign = {};
-    return campaign;
-}
+    public async updateCampaign(id: number, data: Partial<Campaign>): Promise<Campaign> {
+        const campaign = await this.findOne(id);
 
-export const createCampaign = async (data: Partial<Campaign>): Promise<Campaign> => {
-    const campaign: Campaign = {};
-    return campaign;
-}
+        if (!campaign) throw new NotFoundError('Campanha não encontrada');
 
-export const deleteCampaign = async (id: number): Promise<{id: number, message: string}> => {
-    return {
-        id: 1,
-        message: 'Campanha removida com sucesso'
-    };
-}
+        campaign.beginDate = data.beginDate;
+        campaign.endDate = data.endDate;
+        campaign.investment = data.investment;
+        campaign.revenues = data.revenues;
+        campaign.link = data.link;
+        campaign.name = data.name;
+        campaign.source_id = 1;
+        
+        return await this.save(campaign);
+    }
 
-export const getInvestiment = async (): Promise<Number> => {
-    return 12345.90;
-}
+    public createCampaign = async (data: Partial<Campaign>): Promise<Campaign> => {
+        const campaign = this.create();
+        campaign.beginDate = data.beginDate;
+        campaign.endDate = data.endDate;
+        campaign.investment = data.investment;
+        campaign.link = data.link;
+        campaign.name = data.name;
+        campaign.source_id = 1;
+        campaign.user_id = data.user_id;
+        return this.save(campaign);
+    }
 
-export const getRevenue = async (): Promise<Number> => {
-    return 423432.90;
-}
+    public async deleteCampaign(id: number): Promise<any> {
+        return await this.delete(id);
+    }
 
-export const getROI = async (): Promise<Number> => {
-    return 0.342434234;
+    public async getInvestiment(): Promise<number> {
+        const manager = getManager();
+        const rawData = await manager.query(`
+            SELECT sum(investment) as investiment 
+              FROM campaign`);
+        const row = rawData[0]; 
+        console.log(row.investiment);
+        return Number(row.investiment);
+    }
+
+    public async getRevenue(): Promise<number> {
+        const manager = getManager();
+        const rawData = await manager.query(`
+            SELECT sum(revenues) as revenues 
+              FROM campaign`);
+        const row = rawData[0];       
+        console.log(row.revenues);       
+        return Number(row.revenues);
+    }
 }

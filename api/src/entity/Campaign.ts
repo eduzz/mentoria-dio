@@ -1,18 +1,23 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import Source from "./Source";
+import { User } from "./User";
 
 @Entity()
-class Campaign {
+export class Campaign extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
-    
+
+    @Column()
+    source_id: number;
+
+    @Column()
+    user_id: number;
+   
     @Column()
     name: string;
 
     @Column()
-    link: string;
-
-    @Column()
-    source: string;
+    link: string;   
 
     @Column()
     investment: number;
@@ -20,11 +25,17 @@ class Campaign {
     @Column()
     revenues:number;
 
-    @Column()
+    @Column({ name: "begin_date" })
     beginDate: Date;  
 
-    @Column()
+    @Column({ name: "end_date" })
     endDate: Date;
-}
 
-export default Campaign;
+    @ManyToOne(type => Source)
+    @JoinColumn({ name: "source_id" })
+    source: Source;
+
+    @ManyToOne(type => User)
+    @JoinColumn({ name: "user_id" })
+    user: User;
+}

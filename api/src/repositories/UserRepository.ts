@@ -1,37 +1,24 @@
-import User from "../entity/User";
+import { EntityRepository, Repository } from "typeorm";
+import { User } from "../entity/User";
 
-export const getUserByCredentials = async (username: string, password: string): Promise<User> => {
-    // Get user by Database or another data source
-    const user: User = {
-        id: 1,
-        name: 'Diogo Mainardes',
-        email: 'teste@teste.com',
-        password: 'dadasdsad'
-    };
+@EntityRepository(User)
+export class UserRepository extends Repository<User> {
+    
+    public getUserByCredentials = async (username: string, password: string): Promise<User> => {
+        return await this.findOne({ email: username, password });
+    }
 
-    return user;
-}
+    public getUserById = async (id: number): Promise<User> => {
+        return await this.findOne(id);
+    }
 
-export const getUserById = async (id: number): Promise<User> => {
-    // Get user by Database or another data source
-    const user: User = {
-        id: 1,
-        name: 'Diogo Mainardes',
-        email: 'teste@teste.com',
-        password: 'dadasdsad'
-    };
+    public createUser = async (data: any): Promise<User> => {
+        console.log(data);
+        const user = this.create();
+        user.name = data.name;
+        user.email = data.email;
+        user.password = data.password;
+        return await user.save();
+    }
 
-    return user;
-}
-
-export const createUser = async (data: any): Promise<User> => {
-    // Insert user on Database or another data source
-    const user: User = {
-        id: 1,
-        name: 'Diogo Mainardes',
-        email: 'teste@teste.com',
-        password: 'dadasdsad'
-    };
-
-    return user;
 }

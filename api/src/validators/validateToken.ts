@@ -12,13 +12,14 @@ const checkTokenIsValid = (token: string): any => {
 
 export const validateToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const token: string = req.headers.authorization;
-        if (!token) {
+        const bearerToken: string = req.headers.authorization;
+        if (!bearerToken) {
             throw new Error('Authorization token required');
         }
+        const token: string = bearerToken.split(' ')[1];
         const decodedToken = await checkTokenIsValid(token);
-        req.body.user_id = decodedToken.user_id;
-        next(req);
+        res.locals.user_id = decodedToken.user_id;
+        next();
     } catch (err) {
         next(err);
     }

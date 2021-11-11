@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {Campaign} from "./Campaign";
 
 @Entity()
-class User {
+export class User extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -11,8 +12,9 @@ class User {
     @Column()
     email: string;
 
-    @Column()
+    @Column({select: false})
     password: string;
-}
 
-export default User;
+    @OneToMany(type => Campaign, campaign => campaign.user_id)
+    campaigns: Campaign[];
+}
