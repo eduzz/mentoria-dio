@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+/* import { Link } from 'react-router-dom'; */
 
 import usePromisePaginated from '@eduzz/houston-hooks/usePromisePaginated';
 import AddIcon from '@eduzz/houston-icons/Add';
@@ -56,7 +56,7 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
     <div className={className}>
       <Toolbar />
 
-      <ul>
+      {/* <ul>
         <li>
           <Link to='/state-management' target='_blank'>
             Gerenciamento de Estado
@@ -67,7 +67,7 @@ const CampaignsPage: React.FC<IStyledProp> = ({ className }) => {
             Houston Github Pages
           </a>
         </li>
-      </ul>
+      </ul> */}
 
       <CampaignsCards />
       <CampaignForm opened={formOpened} data={current} onComplete={formCallback} onCancel={formCancel} />

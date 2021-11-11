@@ -15,7 +15,7 @@ import campaignService from '@/services/campaign';
 const CampaignsCards: React.FC<IStyledProp> = ({ className }) => {
   const [roi, , roiLoading, roiRefresh] = usePromiseRefresh(async () => {
     const data = await campaignService.graphRoi();
-    return (data * 100).toFixed(2) + '%';
+    return (Number(data) * 100).toFixed(2) + '%';
   }, []);
 
   const [investment, , investmentLoading, investmentRefresh] = usePromiseRefresh(async () => {
