@@ -13,7 +13,6 @@ export class UserRepository extends Repository<User> {
     }
 
     public createUser = async (data: any): Promise<User> => {
-        console.log(data);
         const user = this.create();
         user.name = data.name;
         user.email = data.email;
