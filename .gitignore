@@ -1,4 +1,4 @@
 .DS_Store
 api/node_modules
-api/_volumes/mysql/data/*
+_volumes/mysql/data/*
 worker/node_modules
