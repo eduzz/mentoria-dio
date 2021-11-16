@@ -1,16 +1,6 @@
-import { Channel, connect, Connection, ConsumeMessage } from "amqplib";
+import { Channel, connect, Connection } from "amqplib";
 import { RABBIT_DSN, SENDGRID_TOKEN } from "./settings";
 import sendgrid from '@sendgrid/mail';
-
-const getConnection = async(conn?: Connection): Promise<Connection> => {
-    const connection: Connection = conn || await connect(RABBIT_DSN);
-    return connection;
-}
-
-const getChannel = async(conn: Connection, ch?: Channel) : Promise<Channel> => {
-    const channel: Channel = ch || await conn.createChannel();
-    return channel;
-}
 
 (async() => {
     sendgrid.setApiKey(SENDGRID_TOKEN);
@@ -25,8 +15,8 @@ const getChannel = async(conn: Connection, ch?: Channel) : Promise<Channel> => {
         const json = msg.content.toString() || '';
         const { name, email, link } = JSON.parse(json); 
         const body = {
-            to: `${name} <diogo.mainardes@eduzz.com>`,
-            from: 'diogomainardes@gmail.com',
+            to: `${name} <${email}>`,
+            from: 'diogo.mainardes@eduzz.com',
             subject: 'Recuperacao de senha',
             html: `<p>Olá... acesse o link abaixo para resetar a sua senha</p>
                    <p><a href='${link}'>${link}</a></p>`,
