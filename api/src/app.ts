@@ -1,4 +1,4 @@
-import express, { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { validateRequest } from './validators/validateRequest';
@@ -9,6 +9,8 @@ import { postLoginValidator } from './validators/postLoginValidator';
 import { postUserValidator } from './validators/postUserValidator';
 import { postCampaignValidator } from './validators/postCampaignValidator';
 import { putCampaignValidator } from './validators/putCampaignValidator';
+import { postSendResetValidator } from './validators/postSendResetValidator';
+import { postResetPasswordValidator } from './validators/postResetPasswordValidator';
 
 const app = express();
 
@@ -20,8 +22,9 @@ app.use(express.urlencoded({ extended: false }));
 // Routes for login
 app.post('/auth/create', validateRequest(postUserValidator), AuthController.createUser);
 app.post('/auth/login', validateRequest(postLoginValidator), AuthController.login);
-//app.post('/auth/send-reset', validateRequest(postLoginValidator), AuthController.sendReset);
-//app.post('/auth/reset-password', validateRequest(postLoginValidator), AuthController.resetPassword);
+
+app.post('/auth/send-reset', validateRequest(postSendResetValidator), AuthController.sendReset);
+app.post('/auth/reset-password', validateRequest(postResetPasswordValidator), AuthController.resetPassword);
 //app.post('/auth/change-password', validateRequest(postLoginValidator), AuthController.changePassword);
 
 // Routes protected by token

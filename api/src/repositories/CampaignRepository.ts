@@ -6,13 +6,14 @@ import IPaginationFilter from "../services/interfaces/IPaginationFilter";
 @EntityRepository(Campaign)
 export class CampaignRepository extends Repository<Campaign>{
 
-    public listCampaigns = async (filter: Partial<IPaginationFilter>): Promise<Campaign[]> => {
+    public listCampaigns = async (userId: number, filter: Partial<IPaginationFilter>): Promise<Campaign[]> => {
         const queryBuilder: SelectQueryBuilder<Campaign> = this.createQueryBuilder();
         const all: Campaign[] = await queryBuilder
             .select()
             .take(filter.perPage)
             .skip((filter.page-1)*filter.perPage)
             .orderBy(filter.sort.field, filter.sort.direction)
+            .where({ user_id: userId })
             .getMany();
         return all;
     }
@@ -53,23 +54,24 @@ export class CampaignRepository extends Repository<Campaign>{
         return await this.delete(id);
     }
 
-    public async getInvestiment(): Promise<number> {
+    public async getInvestiment(userId: number): Promise<number> {
         const manager = getManager();
         const rawData = await manager.query(`
             SELECT sum(investment) as investiment 
-              FROM campaign`);
+              FROM campaign
+            WHERE user_id = ?`, [userId]);
         const row = rawData[0]; 
         console.log(row.investiment);
         return Number(row.investiment);
     }
 
-    public async getRevenue(): Promise<number> {
+    public async getRevenue(userId: number): Promise<number> {
         const manager = getManager();
         const rawData = await manager.query(`
             SELECT sum(revenues) as revenues 
-              FROM campaign`);
-        const row = rawData[0];       
-        console.log(row.revenues);       
+              FROM campaign
+              WHERE user_id = ?`, [userId]);
+        const row = rawData[0];          
         return Number(row.revenues);
     }
 }
