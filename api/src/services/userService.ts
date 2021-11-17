@@ -1,6 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import { User } from '../entity/User';
 import {UserRepository} from "../repositories/UserRepository"
+import { checkTokenIsValid } from '../validators/validateToken';
 
 class UserService {
 
@@ -13,6 +14,12 @@ class UserService {
 
     public async createUser (data: any): Promise<User> {
         const user: User = await this.userRepository.createUser(data);
+        return user;
+    }
+
+    public async updatePassword (password: string, token: string): Promise<User> {
+        const tokenDecoded = await checkTokenIsValid(token);
+        const user: User = await this.userRepository.updatePassword(tokenDecoded.id, password);
         return user;
     }
 

@@ -88,7 +88,7 @@ const ListItem = memo((props: IProps) => {
       <Table.Cell mobileSize={6}>{dateFormat(data.beginDate)}</Table.Cell>
       <Table.Cell mobileSize={6}>{dateFormat(data.endDate)}</Table.Cell>
       <Table.Cell mobileSize={12} align='right' mobileAlign='left'>
-        {(data.roi * 100).toFixed(2)}%
+        {(((data.revenues - data.investment) / data.investment) * 100).toFixed(2)}%
       </Table.Cell>
       <Table.ActionLoading show={loading} />
       <Table.Action icon={<EditIcon />} onClick={handleEdit}>

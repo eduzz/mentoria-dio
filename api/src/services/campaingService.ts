@@ -8,8 +8,8 @@ class CampaignService {
 
     constructor(private readonly campaignRepository: CampaignRepository) {}
 
-    public getAllCampaigns = async (filter: Partial<IPaginationFilter>): Promise<IListResult<Campaign>> => {
-        const campaigns: Campaign[] = await this.campaignRepository.listCampaigns(filter);
+    public getAllCampaigns = async (userId: number, filter: Partial<IPaginationFilter>): Promise<IListResult<Campaign>> => {
+        const campaigns: Campaign[] = await this.campaignRepository.listCampaigns(userId, filter);
         return {
             total: campaigns.length,
             result: campaigns
@@ -44,20 +44,20 @@ class CampaignService {
         return result;
     }
 
-    public getInvestiment = async (): Promise<number> => {
-        const result: number = await this.campaignRepository.getInvestiment();
+    public getInvestiment = async (userId: number): Promise<number> => {
+        const result: number = await this.campaignRepository.getInvestiment(userId);
         return result;
     }
 
-    public getRevenue = async (): Promise<number> => {
-        const result: number = await this.campaignRepository.getRevenue();
+    public getRevenue = async (userId: number): Promise<number> => {
+        const result: number = await this.campaignRepository.getRevenue(userId);
         return result;
     }
 
-    public getROI = async (): Promise<number> => {
-        const revenue: number = await this.campaignRepository.getRevenue();
-        const investiment: number = await this.campaignRepository.getInvestiment();
-        return revenue > 0 ? Number(investiment / revenue) : 0;
+    public getROI = async (userId: number): Promise<number> => {
+        const revenue: number = await this.campaignRepository.getRevenue(userId);
+        const investiment: number = await this.campaignRepository.getInvestiment(userId);
+        return revenue > 0 ? Number((revenue - investiment) / investiment) : 0;
     }
 }
 

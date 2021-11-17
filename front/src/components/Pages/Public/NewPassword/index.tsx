@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 import ChevronLeftIcon from 'mdi-react/ChevronLeftIcon';
 import queryString from 'query-string';
-import { RouteComponentProps } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RouteComponentProps, Redirect } from 'react-router-dom';
 
 import useForm from '@eduzz/houston-forms/useForm';
 import Button from '@eduzz/houston-ui/Button';
@@ -14,6 +15,7 @@ import Typography from '@eduzz/houston-ui/Typography';
 import decodeJWTToken from '@/helpers/jwt';
 import IResetPasswordToken from '@/interfaces/tokens/resetPasswordToken';
 import authService from '@/services/auth';
+import { selectorIsAuthenticated } from '@/store/selectors';
 
 interface IProps extends RouteComponentProps<{ t: string }>, IStyledProp {}
 
@@ -21,6 +23,8 @@ const NewPasswordPage: React.FC<IProps> = ({ history, location, className }) => 
   const [loading, setLoading] = useState<boolean>(true);
   const [token, setToken] = useState<string>();
   const [tokenData, setTokenData] = useState<IResetPasswordToken>();
+
+  const isAuthenticated = useSelector(selectorIsAuthenticated);
 
   const form = useForm({
     initialValues: { password: '', confirmPassword: '' },
@@ -48,6 +52,8 @@ const NewPasswordPage: React.FC<IProps> = ({ history, location, className }) => 
   }, [location.search]);
 
   const handleBack = useCallback(() => history.push('/'), [history]);
+
+  if (isAuthenticated) return <Redirect to='/' />;
 
   return (
     <div className={className}>

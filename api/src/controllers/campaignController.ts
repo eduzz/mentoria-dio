@@ -3,7 +3,6 @@ import {Campaign} from '../entity/Campaign';
 import CampaignService from '../services/CampaingService';
 import IPaginationFilter from '../services/interfaces/IPaginationFilter';
 import IListResult from '../services/interfaces/IListResult';
-import Source from '../entity/Source';
 
 class CampaignController {
 
@@ -32,7 +31,7 @@ class CampaignController {
 
     public getAllCampaigns = async (req: Request, res: Response) => {
         const filter: IPaginationFilter = this.sanitizeFilter(req);
-        const campaigns: IListResult<Campaign> = await this.campaignService.getAllCampaigns(filter);
+        const campaigns: IListResult<Campaign> = await this.campaignService.getAllCampaigns(res.locals.user_id, filter);
         return res.json(campaigns);
     }
 
@@ -60,17 +59,17 @@ class CampaignController {
     }
 
     public getInvestiment = async (req: Request, res: Response) => {
-        const total: Number = await this.campaignService.getInvestiment();
+        const total: Number = await this.campaignService.getInvestiment(res.locals.user_id);
         return res.send(total.toString());
     }
 
     public getRevenue = async (req: Request, res: Response) => {
-        const total: Number = await this.campaignService.getRevenue();
+        const total: Number = await this.campaignService.getRevenue(res.locals.user_id);
         return res.send(total.toString());
     }
 
     public getROI = async (req: Request, res: Response) => {
-        const roi: number = await this.campaignService.getROI();
+        const roi: number = await this.campaignService.getROI(res.locals.user_id);
         return res.send(roi.toString());
     }
 }

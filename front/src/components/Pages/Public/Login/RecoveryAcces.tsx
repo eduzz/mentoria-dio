@@ -20,11 +20,14 @@ const LoginRecoveryAccess: React.FC<IProps> = ({ onComplete, onCancel, className
     initialValues: { email: '' },
     validationSchema: yup => yup.object().shape({ email: yup.string().required().email() }),
     async onSubmit(model) {
-      await authService.sendResetPassword(model.email);
-
-      Toast.info('Foi enviado um link para seu email para podermos recuperar seu acesso.');
-      onComplete();
-      form.reset();
+      try {
+        await authService.sendResetPassword(model.email);
+        Toast.info('Foi enviado um link para seu email para podermos recuperar seu acesso.');
+        onComplete();
+        form.reset();
+      } catch (err) {
+        Toast.error('Não foi possível recuperar a senha.');
+      }
     }
   });
 
