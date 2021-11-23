@@ -1,0 +1,58 @@
+
+on:
+  push:
+    branches:
+      - master
+
+name: Deploy to Amazon ECS
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build
+      id: build
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: dio-api
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_RUN_NUMBER -f ./docker/prod/Dockerfile .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_RUN_NUMBER
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_RUN_NUMBER"
+
+    - name: Download task definition
+      run: |
+        aws ecs describe-task-definition --task-definition tsk-dio-api --query taskDefinition > task-definition.json
+
+    - name: Set Image ID on container
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: api
+        image: ${{ steps.build.outputs.image }}
+
+    - name: Deploy
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: svc-dio-api
+        cluster: DIO
+        wait-for-service-stability: true
