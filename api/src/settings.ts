@@ -1,4 +1,5 @@
 export const IS_DEVELOPMENT = true;
+
 export const RABBIT_HOST= 'amqp://localhost';
 export const RABBIT_USER='';
 export const RABBIT_PASSWORD='';
