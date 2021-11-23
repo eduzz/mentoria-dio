@@ -6,11 +6,11 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     volumes: 
       ## Para Windows, coloque o caminho completo
-      ##- D:/Eduzz/Mentoria DIO/mentoria-dio/api/_volumes/mysql/data:/var/lib/mysql
-      ##- D:/Eduzz/Mentoria DIO/mentoria-dio/api/_volumes/mysql/conf.d:/etc/mysql/conf.d
+      - D:/Eduzz/Mentoria DIO/mentoria-live/mentoria-dio/_volumes/mysql/data:/var/lib/mysql
+      - D:/Eduzz/Mentoria DIO/mentoria-live/mentoria-dio/_volumes/mysql/conf.d:/etc/mysql/conf.d
       ## Para Linux/Mac, caminho relativo basta
-      - ./_volumes/mysql/data:/var/lib/mysql
-      - ./_volumes/mysql/conf.d:/etc/mysql/conf.d
+      ##- ./_volumes/mysql/data:/var/lib/mysql
+      ##- ./_volumes/mysql/conf.d:/etc/mysql/conf.d
     ports:
       - 3306:3306
     restart: always
