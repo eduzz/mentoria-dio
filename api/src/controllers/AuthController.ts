@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import LoginService from "../services/LoginService";
-import UserService from "../services/UserService";
+import LoginService from "../services/loginService";
+import UserService from "../services/userService";
 
 class AuthController {
     
