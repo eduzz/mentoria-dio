@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import {Campaign} from '../entity/Campaign';
-import CampaignService from '../services/CampaingService';
+import CampaignService from '../services/campaingService';
 import IPaginationFilter from '../services/interfaces/IPaginationFilter';
 import IListResult from '../services/interfaces/IListResult';
 

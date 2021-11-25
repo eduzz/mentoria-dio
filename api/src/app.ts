@@ -4,7 +4,7 @@ import cors from 'cors';
 import { validateRequest } from './validators/validateRequest';
 import { validateToken } from './validators/validateToken';
 import AuthController from './controllers/AuthController';
-import CampaignController from './controllers/CampaignController';
+import CampaignController from './controllers/campaignController';
 import { postLoginValidator } from './validators/postLoginValidator';
 import { postUserValidator } from './validators/postUserValidator';
 import { postCampaignValidator } from './validators/postCampaignValidator';
